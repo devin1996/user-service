@@ -1,11 +1,14 @@
-import { Column, Entity, ObjectIdColumn } from "typeorm";
+import { Column, Entity, ObjectIdColumn, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class User{
     
-    @ObjectIdColumn()
-    id: string;
 
+    //@ObjectIdColumn()
+    //id: string;
+    @PrimaryGeneratedColumn()
+    id : number;
+    
     @Column({unique: true})
     admin_id: number;
 

@@ -1,13 +1,13 @@
 {
-    "type":"mongodb",
+    "type": "mysql",
     "host": "localhost",
-    "database": "user_service",
-    "synchronize": true,
-    "logging": false,
-    "entities": [
-      "src/entity/*.js"
+    "username": "root",
+    "password": "root",
+    "database": "user_service_db",
+    "entities":[
+        "src/entity/*.js"
     ],
-    "cli": {
-      "entitiesDir": "src/entity"
-    }
-  }
+    "logging":false,
+    "synchronize": true
+
+}
