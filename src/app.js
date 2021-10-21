@@ -40,12 +40,14 @@ var express = require("express");
 var cors = require("cors");
 var typeorm_1 = require("typeorm");
 var user_1 = require("./entity/user");
+var time_1 = require("./entity/time");
 //importing amqlib 
 var amqp = require("amqplib/callback_api");
 var axios_1 = require("axios");
 (0, typeorm_1.createConnection)().then(function (db) {
     //const studentRepository = db.getMongoRepository(User)
     var studentRepository = db.getRepository(user_1.User);
+    var timeRepository = db.getRepository(time_1.Time);
     amqp.connect('amqps://wmqmekbr:RCf9DHx6XLA0lpx7gk1T8OOT1x7Ax0eo@bonobo.rmq.cloudamqp.com/wmqmekbr', function (error0, connection) {
         if (error0) {
             throw error0;
@@ -130,11 +132,11 @@ var axios_1 = require("axios");
                             return [4 /*yield*/, studentRepository.delete({ admin_id: admin_id })];
                         case 1:
                             _a.sent();
-                            console.log('student deleted');
+                            console.log('Student deleted');
                             return [2 /*return*/];
                     }
                 });
-            }); }, { noAck: true });
+            }); });
             app.get('/api/users', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
                 var users;
                 return __generator(this, function (_a) {
@@ -166,6 +168,23 @@ var axios_1 = require("axios");
                         case 3:
                             _a.sent();
                             return [2 /*return*/, res.send(user)];
+                    }
+                });
+            }); });
+            app.post('/api/time', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+                var newTime, result;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0: return [4 /*yield*/, timeRepository.create(req.body)];
+                        case 1:
+                            newTime = _a.sent();
+                            return [4 /*yield*/, timeRepository.save(newTime)
+                                //channel.sendToQueue('student_added', Buffer.from(JSON.stringify(result)))
+                            ];
+                        case 2:
+                            result = _a.sent();
+                            //channel.sendToQueue('student_added', Buffer.from(JSON.stringify(result)))
+                            return [2 /*return*/, res.send(result)];
                     }
                 });
             }); });

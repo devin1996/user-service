@@ -7,7 +7,8 @@
     "entities":[
         "src/entity/*.js"
     ],
-    "logging":false,
+    "logging":false
+,
     "synchronize": true
 
 }
